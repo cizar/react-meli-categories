@@ -67,7 +67,12 @@ class Category extends Component {
             <h1>{category.name}</h1>
           </HeaderDivStyled>
           <ul>
-            {category.children_categories.map((child,i) =><li key={i}>{child.name}</li>)}
+            {category.children_categories.map((child,i) =>
+              <li key={i}>
+                <h2>{child.name}</h2>
+                <p>{child.total_items_in_this_category} productos publicados</p>
+              </li>
+            )}
           </ul>
         </CategoryDivStyled>
       )
