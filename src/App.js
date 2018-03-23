@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Categories from './components/Categories'
+import Categories from './containers/CategoriesContainer'
 
 
 class App extends Component {

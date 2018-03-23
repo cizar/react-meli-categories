@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
-import Axios from 'axios'
+import React from 'react'
 import styled from 'styled-components'
-import { NavLink, Swith, Route } from 'react-router-dom'
+import { NavLink, Route } from 'react-router-dom'
 import Category from './Category'
 
 const DivStyled = styled.div`
@@ -28,39 +27,22 @@ const NavLinkStyled = styled(NavLink)`
     }
 `
 
-class Categories extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      categories: []
-    }
-  }
-
-  componentDidMount(){
-    Axios.get('/sites/MLA/categories#json').then(response =>
-      this.setState({
-        categories: response.data
-      })
-    )
-  }
-
-  render(){
-
-    const { categories } = this.state
-
-    return(
-        <DivStyled>
-          <UlStyled>
-          {categories.map(category =>
-            <li key={category.id}>
-              <NavLinkStyled to={`/categories/${category.id}`}>{category.name}</NavLinkStyled>
-            </li>
-          )}
-          </UlStyled>
-          <Route path={`/categories/:category_id`} component={Category} />
-        </DivStyled>
-    )
-  }
-}
+const Categories = ({ categories, isFetching, isFetched, error }) =>
+  <DivStyled>
+    {isFetching && (
+      <div>Cargando...</div>
+    )}
+    {error && (
+      <div>{error}</div>
+    )}
+    <UlStyled>
+      {categories.map(category =>
+        <li key={category.id}>
+          <NavLinkStyled to={`/categories/${category.id}`}>{category.name}</NavLinkStyled>
+        </li>
+      )}
+    </UlStyled>
+    <Route path={`/categories/:category_id`} component={Category} />
+  </DivStyled>
 
 export default Categories
